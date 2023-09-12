@@ -1,8 +1,6 @@
-import {BoardComponent} from "./components/board";
 import './style/index.css'
+import {Game} from "./models/Game";
 
-const app = document.getElementById('app')
+const game = new Game();
 
-if (app) {
-    app.innerHTML = BoardComponent;
-}
+game.init();

@@ -1,36 +1,91 @@
 import {Cell} from "./Cell";
 import {Colors} from "../types";
+import {Bishop} from "./figures/Bishop";
+import {King} from "./figures/King";
+import {Queen} from "./figures/Queen";
+import {Knight} from "./figures/Knight";
+import {Pawn} from "./figures/Pawn";
+import {Rook} from "./figures/Rook";
 
 export class Board {
-    $el: HTMLElement | null;
-    activeCellCoords: number[] = []
+    board: HTMLElement
+    cells: Cell[][] =[[]]
+
     constructor() {
-        this.$el = document.getElementById('board');
+        this.board = document.createElement('div');
     }
+
     render() {
+        const root = document.getElementById('app');
+        this.board.className = 'chess__container';
+
+        root?.appendChild(this.board);
+        this.addCells();
+    }
+    addCells() {
         for (let i = 0; i < 8; i++) {
+            const row: Cell[] = []
             for (let k = 0; k < 8; k++) {
-                const color = (i + k) % 2 !== 0 ? Colors.BLACK : Colors.WHITE
-                this.appendCell(i, k, color)
+                const color = (k + i) % 2 === 0 ? Colors.WHITE : Colors.BLACK;
+                const cell = new Cell(this.cells, i, k, color, null);
+                row.push(cell)
+                cell.appendOnBoard(this.board);
             }
+            this.cells.push(row)
+        }
+
+        this.addFigures()
+    }
+
+    getCell(x: number, y: number): Cell  {
+        return this.cells[y][x]
+    }
+
+    private addPawns() {
+        for (let i = 0; i < 8; i++) {
+            new Pawn(this.getCell(i, 2), Colors.BLACK)
+            new Pawn(this.getCell(i, 7), Colors.WHITE)
         }
     }
 
-    appendCell(x: number, y: number, color: Colors) {
-        const cell = new Cell(x, y, color);
-        this.$el?.appendChild(cell.$el);
-        cell.$el.addEventListener('click', () => {
-            this.clickCell(cell)
-        })
+    private addRooks() {
+        new Rook(this.getCell(0, 1), Colors.BLACK)
+        new Rook(this.getCell(0, 8), Colors.WHITE)
+        new Rook(this.getCell(7, 1), Colors.BLACK)
+        new Rook(this.getCell(7, 8), Colors.WHITE)
     }
 
-    clickCell(cell: Cell) {
-        this.clearActiveCells();
-        cell.$el.classList.add('active')
+    private addKnights() {
+        new Knight(this.getCell(1, 1), Colors.BLACK)
+        new Knight(this.getCell(1, 8), Colors.WHITE)
+        new Knight(this.getCell(6, 1), Colors.BLACK)
+        new Knight(this.getCell(6, 8), Colors.WHITE)
     }
 
-    clearActiveCells() {
-        document.querySelectorAll('.chess__cell')
-            .forEach(e => e.classList.remove('active'))
+    private addBishops() {
+        new Bishop(this.getCell(2, 1), Colors.BLACK)
+        new Bishop(this.getCell(2, 8), Colors.WHITE)
+        new Bishop(this.getCell(5, 1), Colors.BLACK)
+        new Bishop(this.getCell(5, 8), Colors.WHITE)
     }
+
+    private addKings() {
+        new King(this.getCell(4, 1), Colors.BLACK)
+        new King(this.getCell(4, 8), Colors.WHITE)
+    }
+
+    private addQueens() {
+        new Queen(this.getCell(3, 1), Colors.BLACK)
+        new Queen(this.getCell(3, 8), Colors.WHITE)
+    }
+
+    addFigures() {
+        this.addPawns();
+        this.addRooks();
+        this.addBishops();
+        this.addKnights();
+        this.addKings();
+        this.addQueens();
+    }
+
 }

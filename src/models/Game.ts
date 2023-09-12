@@ -1,8 +1,13 @@
-
+import {Board} from "./Board";
 
 export class Game {
-    init(root: string) {
-        const container = document.getElementById(root);
-        console.log(container);
+    activePlayer = 0;
+    board: Board
+
+    constructor() {
+        this.board = new Board()
+    }
+    init() {
+        this.board.render();
     }
 }

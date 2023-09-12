@@ -24,6 +24,9 @@
 .chess__cell {
     width: 70px;
     height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #fae1ac;
     cursor: pointer;
 }
@@ -39,3 +42,30 @@
 .chess__cell.active {
     background-color: green;
 }
+
+.chess__item {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.pawn-white { background-image: url("../assets/img/pawn_white.svg"); }
+.pawn-black { background-image: url("../assets/img/pawn_black.svg"); }
+
+.rook-white { background-image: url("../assets/img/rook_white.svg"); }
+.rook-black { background-image: url("../assets/img/rook_black.svg"); }
+
+.knight-white { background-image: url("../assets/img/knight_white.svg"); }
+.knight-black { background-image: url("../assets/img/knight_black.svg"); }
+
+.bishop-white { background-image: url("../assets/img/bishop_white.svg"); }
+.bishop-black { background-image: url("../assets/img/bishop_black.svg"); }
+
+.king-white { background-image: url("../assets/img/king_white.svg"); }
+.king-black { background-image: url("../assets/img/king_black.svg"); }
+
+.queen-white { background-image: url("../assets/img/queen_white.svg"); }
+.queen-black { background-image: url("../assets/img/queen_black.svg"); }
+
