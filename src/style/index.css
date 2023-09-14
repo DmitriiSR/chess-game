@@ -39,8 +39,8 @@
     background-color: gray;
 }
 
-.chess__cell.active {
-    background-color: green;
+.chess__cell.selected {
+    background-color: cornflowerblue;
 }
 
 .chess__item {

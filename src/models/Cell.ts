@@ -20,6 +20,18 @@ export class Cell {
     appendOnBoard(container: HTMLElement) {
         this.$el.className = `chess__cell ${this.color}`;
         container.appendChild(this.$el);
+        this.addListener();
         return this.$el;
+    }
+
+    private addListener() {
+        this.$el.onmousedown = () => this.highlightOnClick();
+        this.$el.onmouseover = () => console.log(1);
+    }
+
+    private highlightOnClick() {
+        if (this.figure) {
+            this.$el.classList.add('selected');
+        }
     }
 }

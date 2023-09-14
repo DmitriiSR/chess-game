@@ -22,7 +22,11 @@ export class Board {
         root?.appendChild(this.board);
         this.addCells();
     }
-    addCells() {
+
+    remove() {
+        this.board.remove()
+    }
+    private addCells() {
         for (let i = 0; i < 8; i++) {
             const row: Cell[] = []
             for (let k = 0; k < 8; k++) {
@@ -33,11 +37,11 @@ export class Board {
             }
             this.cells.push(row)
         }
-
-        this.addFigures()
+        this.addListeners();
+        this.addFigures();
     }
 
-    getCell(x: number, y: number): Cell  {
+    private getCell(x: number, y: number): Cell  {
         return this.cells[y][x]
     }
 
@@ -79,7 +83,7 @@ export class Board {
         new Queen(this.getCell(3, 8), Colors.WHITE)
     }
 
-    addFigures() {
+    private addFigures() {
         this.addPawns();
         this.addRooks();
         this.addBishops();
@@ -88,4 +92,10 @@ export class Board {
         this.addQueens();
     }
 
+    private addListeners() {
+        document.onmouseup = () => {
+            const activeCell = this.board.querySelector('.chess__cell.selected');
+            activeCell?.classList.remove('selected')
+        }
+    }
 }

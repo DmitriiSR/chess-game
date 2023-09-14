@@ -1,6 +1,7 @@
-import {Colors} from "../../types";
+import {Colors, FiguresNames} from "../../types";
 import {Cell} from "../Cell";
 import {Figure} from "./Figure";
+import {dragFigure} from "../../utils";
 
 export class Bishop extends Figure {
     logo: string;
@@ -10,6 +11,12 @@ export class Bishop extends Figure {
         this.logo = color === Colors.BLACK ? 'bishop-black' : 'bishop-white';
         this.$el = document.createElement('div');
         this.$el.className = `chess__item ${this.logo}`
-        this.cell.$el.appendChild(this.$el)
+        this.cell.figure = FiguresNames.BISHOP;
+        this.cell.$el.appendChild(this.$el);
+        this.addListeners();
+    }
+
+    private addListeners() {
+        this.$el.onmousedown = () => dragFigure(this.$el)
     }
 }

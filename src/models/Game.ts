@@ -10,4 +10,10 @@ export class Game {
     init() {
         this.board.render();
     }
+
+    restart() {
+        this.board.remove();
+        this.board = new Board();
+        this.board.render();
+    }
 }
